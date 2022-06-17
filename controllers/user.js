@@ -66,7 +66,6 @@ const usuariosPut = async (req, res = response) => {
     }
 
     const usuario = await Usuario.findByIdAndUpdate(id, resto);
-
     res.status(400).json(usuario);
 };
 const usuariosDelete = async(req, res = response) => {
