@@ -6,6 +6,4 @@ const RoleSchema = Schema({
         require: [true, 'El rol es obligatorio']
     }
 });
-
-
 module.exports = model('Role', RoleSchema)
