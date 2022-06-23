@@ -71,14 +71,34 @@ const usuariosPut = async (req, res = response) => {
 const usuariosDelete = async(req, res = response) => {
 
     const {id} =req.params;
-
+    const {uid} = req.uid;
+    const userAuth = req.userauth;
     //borrar fisicamente
     //const usuario = await Usuario.findByIdAndDelete(id);
 
     const usuario = await Usuario.findByIdAndUpdate(id, {estado: false});
+   
+    if(!usuario)
+    {
+        return res.status(401).json({
+            msg:'Token no valido- usuario no existe en bd'
+        })
+    }
+
+
+    //verificar si el  uid tiene estado true
+    if(!usuario.estado)
+    {
+        return res.status(400).json({
+            msg:'Token no valido- usuario con estado: false'
+            });
+    }
+    
     
     res.json({
-        usuario
+        usuario,
+        uid,
+        userAuth
     });
 };
 const usuariosPatch = (req, res = response) => {
